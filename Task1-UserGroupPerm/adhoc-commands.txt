@@ -1,0 +1,41 @@
+# Question A:
+# Add two groups to machine named bhopal & indore.
+# Add two primary users to bhopal group named newmarket and city. 
+# Newmarket user can access the data of palasia user in rwx mode. 
+# Add two primary users to group indore named rnt & palasia. 
+# RNT can access the data of city user in read only. 
+# Palasia user can access the data of new market user with full permission. 
+# City user does not have interactive shell. Password of all user should be redhat.
+
+# Answer: Ad-hoc command
+
+mkpasswd --method=sha-512
+
+ansible all -m group -a'name=bhopal state=present' -i inventory -k -b -K
+ansible all -m group -a'name=indore state=present' -i inventory -k -b -K
+ansible all -m user -a'name=city state=present group=bhopal shell=/sbin/nologin' -i inventory -k -b -K
+ansible all -m user -a'name=newmarket state=present group=bhopal groups=indore password={here paste encrypted pass output from above mkpasswd command}' -i inventory -k -b -K
+ansible all -m user -a'name=rnt state=present group=indore groups=bhopal password={here paste encrypted pass output from above mkpasswd command}' -i inventory -k -b -K
+ansible all -m user -a'name=palasia state=present group=indore groups=bhopal password={here paste encrypted pass output from above mkpasswd command}' -i inventory -k -b -K
+
+ansible all -m file -a'path=/home/city mode=0740' -i inventory -k -b -K
+ansible all -m file -a'path=/home/newmarket mode=0770' -i inventory -k -b -K
+ansible all -m file -a'path=/home/palasia mode=0770' -i inventory -k -b -K
+
+# Question B:
+# Create 4 users in System named raka,sabu,billa and nagraj. 
+# Add raka user to machine and his default primary group is raka. 
+# Add another user sabu to machine who's primary group is comics and his default directory is /sabu. 
+# Add another user to machine name billa who's primary group is chachaji and secondary group is comics. 
+# Add another user nagraj who do not have login permission. 
+# all passwords are redhat.
+
+# Answer: Ad-hoc command
+
+ansible all -m group -a'name=comic state=present' -i inventory -k -b -K
+ansible all -m group -a'name=chachaji state=present' -i inventory -k -b -K
+ansible all -m user -a'name=sabu state=present group=comic home=/sabu password={here paste encrypted pass output from above mkpasswd command}' -i inventory -k -b -K
+ansible all -m user -a'name=billa state=present group=chachaji groups=comic password={here paste encrypted pass output from above mkpasswd command}' -i inventory -k -b -K
+ansible all -m user -a'name=nagraj state=present shell=/sbin/nologin' -i inventory -k -b -K
+ansible all -m user -a'name=raka state=present password={here paste encrypted pass output from above mkpasswd command}' -i inventory -k -b -K
+
