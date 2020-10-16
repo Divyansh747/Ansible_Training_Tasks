@@ -1,0 +1,8 @@
+[webserver]
+node2.example.com
+
+[webserver:vars]
+pkg=vsftpd
+svc=vsftpd
+
+

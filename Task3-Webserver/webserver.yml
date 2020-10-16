@@ -1,0 +1,27 @@
+- name: setup webserver and hosting website from github
+  hosts: webserver
+  tasks:
+  - name: configure webserver
+    yum:
+      name:
+        - "{{ pkg }}"
+        - git
+      state: present
+    
+  - name: start {{svc}} service
+    service:
+       name: "{{svc}}"
+       state: started
+       enabled: true
+       
+  - name: clone webpage
+    git:
+      repo: https://github.com/Divyansh747/HTML_Bootstrap.git
+      dest: /var/www/html
+      clone: yes
+      
+  - name: restart {{svc}} service
+    service:
+      name: "{{ svc }}"
+      state: restarted
+
