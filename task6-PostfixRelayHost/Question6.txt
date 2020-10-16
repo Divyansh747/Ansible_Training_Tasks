@@ -1,0 +1,8 @@
+# About Task
+
+1) Configure Postfix RealyHost with the help of Ansible playbook
+
+2) Use Jinja template for configuring Postfix for multiple nodes dynamically
+
+3) Send E-Mails from every nodes to your email address
+------------------------------------------------------------------------------------------

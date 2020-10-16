@@ -1,0 +1,10 @@
+- name: Sending mail using playbook
+  hosts: mailserver
+  tasks:
+    - name: sending mail to test@gmail.com
+      mail:
+        host: smtp.gmail.com
+        port: 587
+        username: your_email_address
+        password: your_email_password
+        to: Test <test@gmail.com>
