@@ -1,0 +1,8 @@
+- hosts: sbi
+  tasks:
+  - name: compress /var/log to /home/sbi.tgz
+    archive:
+      path: /var/log
+      dest: /home/sbi.tgz
+  
+
