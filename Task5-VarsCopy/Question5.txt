@@ -1,0 +1,8 @@
+Question 5 :- (Solve by using Ansible Playbook)
+
+- create variable name packages and add all required packages for webserver
+- install httpd package using variables
+- create index.html and add content "Hello from NodeX"
+- restart services using variable concept
+
+-------------------------------------------------------------------------

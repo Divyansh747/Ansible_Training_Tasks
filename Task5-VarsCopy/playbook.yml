@@ -1,0 +1,24 @@
+- name: configure webserver and host website
+  hosts: webserver
+  vars:
+    packages: 
+      - httpd
+    services:
+      - httpd
+  tasks: 
+    - name: install {{ packages }}  package
+      yum: 
+        name: "{{ packages }}"
+        state: present
+    - name: create index.html page
+      copy: 
+        content: Hello from "{{ ansible_hostname }}"
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: 0644
+    - name: start and enable {{ services }} service
+      service: 
+        name: "{{ services }}"
+        state: started
+
