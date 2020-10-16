@@ -1,0 +1,44 @@
+- name: setup mariadb database
+  hosts: databases
+  tasks:
+    - name: install mariadb-server
+      yum:
+        name: 
+          - mariadb-server
+          - MySQL-python
+        state: present
+        
+    - name: start mariadb-server service
+      service:
+        name: mariadb
+        state: started
+        enabled: true
+
+    - name: mysql_root_password
+      mysql_user:
+        login_user: root
+        login_password: redhat
+        user: root
+        check_implicit_admin: true
+        password: redhat
+        host: localhost
+
+    - name: Create database user with name 'divyansh747' and password 'redhat' with all database privileges
+      mysql_user:
+        name: divyansh747
+        password: redhat
+        login_user: root
+        login_password: redhat
+        login_host: localhost
+        priv: '*.*:ALL'
+        state: present
+
+    - name: Create a new database with name 'svvv'
+      mysql_db:
+        name: svvv
+        state: present
+        login_user: root
+        login_password: redhat
+        login_host: localhost
+
+

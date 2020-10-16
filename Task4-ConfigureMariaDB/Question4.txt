@@ -1,0 +1,6 @@
+Question 4 :- (Solve by using Ansible Playbook)
+- Install MariaDB package
+- Configure MariaDB setup
+- Create user name 'divyansh747'
+- Create database name 'svvv'
+-------------------------------------------------------------------------
