@@ -1,0 +1,4 @@
+---
+- hosts: smb_server
+  roles:
+    - samba
