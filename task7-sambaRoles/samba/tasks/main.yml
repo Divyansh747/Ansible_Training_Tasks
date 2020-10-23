@@ -33,3 +33,5 @@
      dest: "{{ samba_config_dir }}"
    notify: restart_samba_service
 
+ - name: restorecon context
+   shell: restorecon -vRf "{{ samba_dir }}"
