@@ -1,0 +1,35 @@
+---
+# tasks file for samba
+ - name: install {{ samba_packages }}
+   yum:
+     name: "{{ samba_packages }}"
+     state: present
+
+ - name: start and enable {{ samba_service }}
+   service:
+     name: "{{ item }}"
+     state: started
+     enabled: true
+   with_items: 
+     - "{{ samba_services }}"
+
+ - name: create samba share {{ samba_dir }}
+   file:
+     path: "{{ samba_dir }}"
+     state: directory
+     owner: root
+     group: root
+     mode: 0777
+
+ - name: apply selinux context in {{ samba_dir }}
+   sefcontext:
+     target: "{{ samba_dir }}(/.*)?"
+     setype: samba_share_t
+     state: present
+
+ - name: share samba.j2 file to remote system
+   template:
+     src: samba.j2
+     dest: "{{ samba_config_dir }}"
+   notify: restart_samba_service
+

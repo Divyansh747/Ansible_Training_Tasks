@@ -1,0 +1,13 @@
+---
+# vars file for samba
+samba_packages:
+  - samba
+  - samba-common
+  - samba-client
+  - policycoreutils-python
+samba_services:
+  - smb
+  - nmb
+ 
+samba_dir: /smbshare
+samba_config_dir: /etc/samba/smb.conf
