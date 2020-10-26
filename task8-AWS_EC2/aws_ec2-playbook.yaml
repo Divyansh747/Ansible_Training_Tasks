@@ -38,3 +38,18 @@
            rule_desc: allow all on port 80 and 22
        when: aws_ec2_key_result.changed
  
+     - name: create aws ec2 instance
+       ec2:
+         key_name: "{{ key_name }}"
+         instance_type: t2.micro
+         image: "{{ ami_id }}"
+         wait: yes
+         count: 1
+         group: "{{ sg_name }}"
+         region: "{{ aws_region }}"
+       register: aws_ec2_result
+
+     - name: debug ec2 instance details
+       debug:
+         msg: "{{ aws_ec2_result }}"
+
