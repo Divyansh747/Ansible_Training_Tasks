@@ -1,0 +1,15 @@
+---
+ - name: Laucnh AWS EC2 instance
+   hosts: localhost
+   vars:
+     - aws_region: ap-south-1
+     - ami_id: ami-0e306788ff2473ccb 
+     - key_name: aws-ansible
+     - sg_name: aws-ansible-sg
+     - vpc_id: 
+     - security_group_ports: 
+       - 80
+       - 22
+     - email_id: 
+     - email_pass: 
+ 
