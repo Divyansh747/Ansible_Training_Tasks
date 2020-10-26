@@ -24,5 +24,17 @@
          content: "{{ aws_ec2_key_result.key.private_key }}"
          dest: ./{{ key_name }}.pem
          mode: 0400
+
+     - name: create aws security group
+       ec2_group:
+         name: "{{ sg_name  }}"
+         description: aws security group
+         vpc_id: "{{ vpc_id }}"
+         rules:
+         - proto: tcp
+           ports: "{{ security_group_ports }}"
+           cidr_ip: 0.0.0.0/0
+           cidr_ipv6: ::/0
+           rule_desc: allow all on port 80 and 22
        when: aws_ec2_key_result.changed
  
