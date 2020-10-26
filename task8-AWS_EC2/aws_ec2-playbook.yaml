@@ -66,3 +66,22 @@
        debug:
          msg: "{{ aws_ec2_vol_result }}"
 
+     - name: sending mail to test@gmail.com
+       mail:
+         host: smtp.gmail.com
+         port: 587
+         username: "{{ email_id }}"
+         password: "{{ email_pass }}"
+         to: 
+         attach:
+         - aws-ansible.pem
+         subject: AWS EC2 details
+         body: |
+               aws ec2 instance details :-
+               public ip = {{ aws_ec2_result.instances[0].public_ip }}
+               instance type = {{ aws_ec2_result.instances[0].instance_type }}
+               additional volume size = {{ aws_ec2_vol_result.results[0].invocation.module_args.volume_size }}
+               ssh -i {{ key_name }}.pem ec2-user@{{ aws_ec2_result.instances[0].public_ip }}
+                                                                                                                                                       84,1          Bot
+
+
