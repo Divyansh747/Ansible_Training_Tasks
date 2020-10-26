@@ -12,4 +12,17 @@
        - 22
      - email_id: 
      - email_pass: 
+   tasks:
+     - name: generate key pairs
+       ec2_key: 
+         name: "{{ key_name }}"
+         region: "{{ aws_region }}"
+       register: aws_ec2_key_result
+
+     - name: store private key pair
+       copy:
+         content: "{{ aws_ec2_key_result.key.private_key }}"
+         dest: ./{{ key_name }}.pem
+         mode: 0400
+       when: aws_ec2_key_result.changed
  
