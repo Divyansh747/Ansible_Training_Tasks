@@ -53,3 +53,16 @@
        debug:
          msg: "{{ aws_ec2_result }}"
 
+     - name: create and attach vol to ec2 instance
+       ec2_vol:
+         instance: "{{ item }}"
+         volume_size: 10
+         volume_type: gp2
+         region: "{{ aws_region }}"
+       with_items: "{{ aws_ec2_result.instance_ids }}"
+       register: aws_ec2_vol_result
+
+     - name: debug ec2 volume instance details
+       debug:
+         msg: "{{ aws_ec2_vol_result }}"
+
