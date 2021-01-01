@@ -19,6 +19,6 @@
         mode: 0644
     - name: start and enable {{ services }} service
       service: 
-        name: "{{ services }}"
+        name: "{{ item }}"
         state: started
-
+      with_items: "{{ services }}"
